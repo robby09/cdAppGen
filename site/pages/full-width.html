@@ -92,7 +92,7 @@ Licence URI: http://www.os-templates.com/template-terms
 
         <h2>Add the details</h2>
         <form ref='uploadForm'id='uploadForm'
-           action='http://localhost:8080/uploadphoto'
+           action='http://192.168.0.121:8080/uploadphoto'
            method='post'
            encType="multipart/form-data">
             &nbsp Splash banner
@@ -102,6 +102,8 @@ Licence URI: http://www.os-templates.com/template-terms
              <input type="file" name="icon"  />
              <br>
              &nbsp Festival map
+             <input type="file" name="map"  />
+             <br>
              <input type='submit' value='Upload' name="map" />
              <br>
 
@@ -115,7 +117,7 @@ Licence URI: http://www.os-templates.com/template-terms
 
 <br><br><br>
         <h2>Total:</h2><h2 id="total">500</h2>
-        <button type="button" name="button">Checkout</button>
+        <button type="button" name="button" onclick="generateapp()">Checkout</button>
       </div>
       <!-- ################################################################################################ -->
     </div>
@@ -140,6 +142,11 @@ Licence URI: http://www.os-templates.com/template-terms
         }
 
         text.textContent = basePrice;
+    }
+
+    function generateapp() {
+      console.log("generateapp");
+      window.location = "http://192.168.0.121:8080/generateapp";
     }
     </script>
     <!-- ################################################################################################ -->
