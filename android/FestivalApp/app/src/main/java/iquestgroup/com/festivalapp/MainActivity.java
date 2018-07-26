@@ -13,9 +13,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
+
+import java.io.File;
+
+import test.ui.CsvPickerFragment;
+import test.ui.TableLayoutFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        CsvPickerFragment.OnCsvFileSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +91,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_lineup) {
             fragment = new LineupFragment();
         } else if (id == R.id.nav_calendar) {
-            fragment = new ScheduleFragment();
+            fragment = CsvPickerFragment.newInstance();
         } else if (id == R.id.nav_map) {
             fragment = new MapFragment();
         } else if (id == R.id.nav_schedule) {
@@ -103,5 +110,23 @@ public class MainActivity extends AppCompatActivity
     public void navigateToFragment(Fragment fragment) {
         android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.content, fragment).commit();
+    }
+
+    @Override
+    public void onCsvFileSelected(String fileName) {
+        if (fileName != null && !fileName.isEmpty()) {
+            File file = new File(fileName);
+            if (file.exists() && fileName.endsWith(".csv")) {
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.content, TableLayoutFragment.newInstance(fileName), CsvPickerFragment.class.getSimpleName())
+                        .addToBackStack(CsvPickerFragment.class.getSimpleName())
+                        .commit();
+            } else {
+                Toast.makeText(this, R.string.not_csv_file_error, Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, R.string.no_such_file_error, Toast.LENGTH_SHORT).show();
+        }
     }
 }
