@@ -57,8 +57,6 @@ public class CsvPickerFragment extends Fragment implements View.OnClickListener 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_csv_picker, container, false);
-        view.findViewById(R.id.bPickFile).setOnClickListener(this);
-        tvPickFile = (TextView) view.findViewById(R.id.tvPickFile);
         return view;
     }
 
